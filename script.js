@@ -1,8 +1,8 @@
 async function init() {
-  $("#value").text((await checkIfDead("Elizabeth II")) ? "YES!" : "no.");
+  $("#value").text((await checkIfDead("Elizabeth II")) ? "YES! 🎉" : "no :(");
   $("#value_other").text(
-    "Has Queen Elizabeth II died? - " +
-      ((await checkIfDead("Elizabeth I")) ? "YES!" : "no."),
+    "Has Queen Elizabeth I (the original) died? - " +
+      ((await checkIfDead("Elizabeth I")) ? "yes" : "no"),
   );
 }
 
