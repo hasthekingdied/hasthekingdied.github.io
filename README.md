@@ -1,3 +1,3 @@
-# Is the queen dead?
+# Has the queen died?
 
-[Is the queen dead?](https://darccyy.github.io/color)
+[Has the queen died?](https://darccyy.github.io/hasthequeendied)
