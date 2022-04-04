@@ -1,31 +1,41 @@
+var name = "Elizabeth II";
+
 async function init() {
+  // Loading CSS
   $(".loading").css("display", "block");
   $(".check, .date").css("display", "none");
   $("body").removeClass("false").removeClass("true");
   $(".question").addClass("move");
 
-  var deathDate = await getDeathDate("Elizabeth II");
+  // Check death
+  var deathDate = await getDeathDate(name);
+  // Run if dead or not dead
+  deathDate ? setDead(deathDate) : setNotDead();
   $(".loading").css("display", "none");
-  $(".answer").text(deathDate ? "YES! 🎉" : "no 😢");
-
-  if (deathDate) {
-    $("body").addClass("true");
-    $(".date").text(deathDate).css("display", "block");
-    $(".question").removeClass("move");
-
-    confetti({
-      particleCount: 200,
-      origin: { x: 0.5, y: 1 },
-      scalar: 1.8,
-    });
-  } else {
-    $("body").addClass("false");
-    $(".check").css("display", "block");
-    $(".question").removeClass("move");
-  }
+  $(".question").removeClass("move");
 }
 
-// Get death date from wikipedia page
+// If not dead
+function setNotDead() {
+  $(".answer").text("no 😢");
+  $("body").addClass("false");
+  $(".check").css("display", "block");
+}
+
+// If is dead
+function setDead(deathDate) {
+  $(".answer").text("YES! 🎉");
+  $("body").addClass("true");
+  $(".date").text(deathDate).css("display", "block");
+
+  confetti({
+    particleCount: 200,
+    origin: { x: 0.5, y: 1 },
+    scalar: 1.8,
+  });
+}
+
+// Get death date from Wikipedia article
 function getDeathDate(name) {
   return new Promise(resolve => {
     fetch(
@@ -61,4 +71,9 @@ function getDeathDate(name) {
         throw err;
       });
   });
+}
+
+// Credits
+function credits() {
+  console.log("Made by darcy\nPowered by the Wikipedia API");
 }

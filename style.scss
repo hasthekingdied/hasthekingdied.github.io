@@ -13,10 +13,12 @@ body {
   background-color: #005230;
   color: white;
 
+  // Dead
   &.true {
     background-color: #06804d;
   }
 
+  // Not dead
   &.false {
     background-color: #104142;
   }
@@ -46,6 +48,7 @@ body {
   text-align: center;
 }
 
+// Under answer
 .secondary {
   .loading,
   .check,
