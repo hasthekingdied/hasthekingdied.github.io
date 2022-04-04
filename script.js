@@ -1,3 +1,6 @@
+// We here at hasthequeendied do not advocate for violence towards anyone, including members of the royal family
+// This is simply a test of the Wikipedia API
+
 var name = "Elizabeth II";
 var answers = {
   no: [
@@ -7,21 +10,21 @@ var answers = {
     "Nup",
     "NO!",
     "not yet...",
+    "no? doesn't seem that way",
     "No... for now.",
     "Not a chance",
-    "Probably not.",
+    "Probably not tbh.",
     "You wish!",
     "Nope. Try again tomorrow!",
-    "no 😢",
-    `No. But perhaps it will occur on:<br /><code>${getFutureDate()}</code>`,
+    `No. But perhaps it will occur on:<br /><code>${getFutureDate()}</code>`, // Merely a harmless prediction is all!
   ],
   yes: [
-    "YES! 🎉",
-    "🥳 YES! 🥳",
-    "🎉 APPARENTLY",
-    "🎉🎉 SOURCES SAY YES!!! 🎉🎉",
-    "i think so!?!?! 🥳",
-    "YES! 🎉 CAN YOU BELIEVE IT?",
+    "YES!",
+    "YES! Uh oh!",
+    "APPARENTLY",
+    "SOURCES SAY YES!!!",
+    "i think so!?!?!",
+    "YES! CAN YOU BELIEVE IT?",
   ],
 };
 
@@ -29,7 +32,7 @@ async function init() {
   // Loading CSS
   $(".loading").css("display", "block");
   $(".check, .source").css("display", "none");
-  $("body").removeClass("false").removeClass("true");
+  $("body").removeClass("no").removeClass("yes");
   $(".question").addClass("move");
 
   // Check death
@@ -97,11 +100,6 @@ function getDeathDate(name) {
         throw err;
       });
   });
-}
-
-// Credits
-function credits() {
-  console.log("Made by darcy\nPowered by the Wikipedia API");
 }
 
 // Get random date somewhere in the near future
