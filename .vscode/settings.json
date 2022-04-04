@@ -1,4 +1,5 @@
 {
   "compile-hero.disable-compile-files-on-did-save-code": false,
-  "compile-hero.scss-output-directory": "."
+  "compile-hero.scss-output-directory": ".",
+  "liveServer.settings.port": 5501
 }

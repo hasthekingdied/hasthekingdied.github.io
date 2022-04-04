@@ -1,3 +1,7 @@
+code {
+  font-family: "Courier New", Courier, monospace;
+}
+
 body,
 html {
   height: 100%;
@@ -14,12 +18,12 @@ body {
   color: white;
 
   // Dead
-  &.true {
+  &.yes {
     background-color: #06804d;
   }
 
   // Not dead
-  &.false {
+  &.no {
     background-color: #104142;
   }
 }
@@ -50,9 +54,11 @@ body {
 
 // Under answer
 .secondary {
+  opacity: 0.7;
+
   .loading,
   .check,
-  .date {
+  .source {
     display: none;
     padding: none;
     font-size: inherit;
@@ -65,6 +71,16 @@ body {
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  .source a {
+    font-size: 15px;
+    color: white;
+    opacity: 0.5;
+
+    &:not(:hover) {
+      text-decoration: none;
     }
   }
 }

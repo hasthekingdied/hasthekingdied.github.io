@@ -1,3 +1,7 @@
+code {
+  font-family: "Courier New", Courier, monospace;
+}
+
 body,
 html {
   height: 100%;
@@ -13,10 +17,10 @@ body {
   background-color: #005230;
   color: white;
 }
-body.true {
+body.yes {
   background-color: #06804d;
 }
-body.false {
+body.no {
   background-color: #104142;
 }
 
@@ -41,9 +45,12 @@ body.false {
   text-align: center;
 }
 
+.secondary {
+  opacity: 0.7;
+}
 .secondary .loading,
 .secondary .check,
-.secondary .date {
+.secondary .source {
   display: none;
   padding: none;
   font-size: inherit;
@@ -55,4 +62,12 @@ body.false {
 }
 .secondary .check:hover {
   text-decoration: underline;
+}
+.secondary .source a {
+  font-size: 15px;
+  color: white;
+  opacity: 0.5;
+}
+.secondary .source a:not(:hover) {
+  text-decoration: none;
 }

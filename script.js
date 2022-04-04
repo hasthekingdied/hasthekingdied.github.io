@@ -1,9 +1,34 @@
 var name = "Elizabeth II";
+var answers = {
+  no: [
+    "no",
+    "no...",
+    "Nope.",
+    "Nup",
+    "NO!",
+    "not yet...",
+    "No... for now.",
+    "Not a chance",
+    "Probably not.",
+    "You wish!",
+    "Nope. Try again tomorrow!",
+    "no 😢",
+    `No. But perhaps it will occur on:<br /><code>${getFutureDate()}</code>`,
+  ],
+  yes: [
+    "YES! 🎉",
+    "🥳 YES! 🥳",
+    "🎉 APPARENTLY",
+    "🎉🎉 SOURCES SAY YES!!! 🎉🎉",
+    "i think so!?!?! 🥳",
+    "YES! 🎉 CAN YOU BELIEVE IT?",
+  ],
+};
 
 async function init() {
   // Loading CSS
   $(".loading").css("display", "block");
-  $(".check, .date").css("display", "none");
+  $(".check, .source").css("display", "none");
   $("body").removeClass("false").removeClass("true");
   $(".question").addClass("move");
 
@@ -17,16 +42,17 @@ async function init() {
 
 // If not dead
 function setNotDead() {
-  $(".answer").text("no 😢");
-  $("body").addClass("false");
+  $(".answer").html(F.randomChoice(answers.no));
+  $("body").addClass("no");
   $(".check").css("display", "block");
 }
 
 // If is dead
 function setDead(deathDate) {
-  $(".answer").text("YES! 🎉");
-  $("body").addClass("true");
-  $(".date").text(deathDate).css("display", "block");
+  $(".answer").text(F.randomChoice(answers.yes));
+  $("body").addClass("yes");
+  $(".date").text(deathDate);
+  $(".source").css("display", "block");
 
   confetti({
     particleCount: 200,
@@ -76,4 +102,13 @@ function getDeathDate(name) {
 // Credits
 function credits() {
   console.log("Made by darcy\nPowered by the Wikipedia API");
+}
+
+// Get random date somewhere in the near future
+function getFutureDate() {
+  return new Date(Date.now() + F.randomInt(2e9, 4e9))
+    .toString()
+    .split(" ")
+    .slice(0, 5)
+    .join(" ");
 }
