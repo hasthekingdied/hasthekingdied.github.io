@@ -1,5 +1,67 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
 body {
-  background-color: #111;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #005230;
+  color: white;
+
+  &.true {
+    background-color: #06804d;
+  }
+
+  &.false {
+    background-color: #104142;
+  }
+}
+
+.question {
+  display: block;
+  text-align: center;
+
+  &.move {
+    animation: question 0.4s infinite alternate;
+  }
+}
+
+@keyframes question {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(0, -10px);
+  }
+}
+
+.answer {
+  display: block;
+  text-align: center;
+}
+
+.secondary {
+  .loading,
+  .check,
+  .date {
+    display: none;
+    padding: none;
+    font-size: inherit;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .check {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

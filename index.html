@@ -17,14 +17,18 @@
       type="text/javascript"
       src="https://fortissimojs.github.io/index.vanilla.min.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="./script.js"></script>
+
+    <link rel="shortcut icon" href="./favicon.png" type="image/png" />
   </head>
   <body onload="init()">
-    <p>
-      Has the queen died?
-      <p id="value">Loading...</p>
-    </p>
-    <br />
-    <p id="value_other"></p>
+    <h1 class="question">Has the queen died?</h1>
+    <h2 class="answer">🤔</h2>
+    <h3 class="secondary">
+      <span class="loading">Loading...</span>
+      <span class="check" onclick="init()">Check again</span>
+      <span class="date">Unknown date</span>
+    </h3>
   </body>
 </html>
