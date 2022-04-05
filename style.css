@@ -15,13 +15,16 @@ body {
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #005230;
+  box-shadow: inset 0 0 100px #003822;
   color: white;
 }
 body.yes {
-  background-color: #06804d;
+  background-color: #067f4c;
+  box-shadow: inset 0 0 100px #047244;
 }
 body.no {
   background-color: #104142;
+  box-shadow: inset 0 0 100px #0a3333;
 }
 
 .question {
