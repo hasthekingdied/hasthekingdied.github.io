@@ -1,3 +1,3 @@
 # Has the queen died?
 
-[Has the queen died?](https://darccyy.github.io/hasthequeendied)
+[Has the queen died? Find out now!](https://hasthequeendied.com)
