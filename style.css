@@ -86,7 +86,7 @@ footer a {
 footer a:not(:hover) {
   text-decoration: none;
 }
-@media (max-width: 300px) {
+@media (max-width: 400px) {
   footer {
     text-align: center;
   }
