@@ -65,36 +65,41 @@ function setDead(deathDate) {
 }
 
 // Get death date from Wikipedia article
+const logs = {};
 function getDeathDate(name) {
   return new Promise(resolve => {
-    fetch(
+    const now = Date.now();
+    logs[now] = {};
+
+    const URL =
       "https://en.wikipedia.org/w/api.php?" +
-        $.param({
-          origin: "*",
-          format: "json",
-          action: "query",
-          prop: "revisions",
-          rvprop: "content",
-          titles: name,
-        }),
-      {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      $.param({
+        origin: "*",
+        format: "json",
+        action: "query",
+        prop: "revisions",
+        rvprop: "content",
+        titles: name,
+      });
+    fetch(URL, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+    })
       .then(res => res.json())
       .then(json => {
+        logs[now].json = json;
         // Parse data (very unreliable)
-        var info = Object.values(json?.query?.pages)?.[0]
+        var date = Object.values(json?.query?.pages)?.[0]
           ?.revisions[0]["*"].split("death_date")[1]
           ?.replace(/^ */, "")
           ?.slice(2)
           ?.split("\n")[0];
+        logs[now].date = date;
 
-        resolve(info || null);
+        resolve(date || null);
       })
       .catch(err => {
         throw err;

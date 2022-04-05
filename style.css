@@ -15,16 +15,13 @@ body {
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #005230;
-  box-shadow: inset 0 0 100px #003822;
   color: white;
 }
 body.yes {
   background-color: #067f4c;
-  box-shadow: inset 0 0 100px #047244;
 }
 body.no {
   background-color: #104142;
-  box-shadow: inset 0 0 100px #0a3333;
 }
 
 .question {
@@ -49,7 +46,7 @@ body.no {
 }
 
 .secondary {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .secondary .loading,
 .secondary .check,
@@ -75,14 +72,22 @@ body.no {
   text-decoration: none;
 }
 
-.footer {
+footer {
   position: fixed;
   bottom: 5px;
   left: 5px;
-  font-size: 12px;
-  color: white;
-  opacity: 0.3;
+  right: 5px;
+  font-size: clamp(10px, 2vw, 12px);
+  opacity: 0.25;
 }
-.footer:not(:hover) {
+footer a {
+  color: white;
+}
+footer a:not(:hover) {
   text-decoration: none;
+}
+@media (max-width: 300px) {
+  footer {
+    text-align: center;
+  }
 }
