@@ -115,3 +115,11 @@ function getFutureDate() {
     .slice(0, 5)
     .join(" ");
 }
+
+// Test with other name
+function test() {
+  var char = name.slice(-1);
+  name = name.slice(0, -1);
+  init();
+  name += char;
+}
