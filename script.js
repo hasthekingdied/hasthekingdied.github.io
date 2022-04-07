@@ -1,6 +1,3 @@
-// We here at hasthequeendied do not advocate for violence towards anyone, including members of the royal family
-// This is simply a test of the Wikipedia API
-
 var name = "Elizabeth II";
 var answers = {
   no: [
