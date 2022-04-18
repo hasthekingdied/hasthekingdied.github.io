@@ -26,6 +26,11 @@ var answers = {
 };
 
 async function init() {
+  //! API test
+  $.get("/api.html", (data, status) => {
+    console.log(data, status);
+  });
+  
   // Loading CSS
   $(".loading").css("display", "block");
   $(".check, .source").css("display", "none");
