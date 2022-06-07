@@ -1,4 +1,4 @@
-var name = "Elizabeth II";
+var fullName = "Elizabeth II";
 var answers = {
   no: [
     "no",
@@ -22,10 +22,13 @@ var answers = {
     "SOURCES SAY YES!!!",
     "i think so!?!?!",
     "YES! CAN YOU BELIEVE IT?",
+    "Yeah? Goodness.",
+    "It looks like it.",
   ],
 };
 
-async function init() {
+// Start everything
+async function init(name = fullName) {
   // Loading CSS
   $(".loading").css("display", "block");
   $(".check, .source").css("display", "none");
@@ -38,6 +41,7 @@ async function init() {
   deathDate ? setDead(deathDate) : setNotDead();
   $(".loading").css("display", "none");
   $(".question").removeClass("move");
+  return deathDate;
 }
 
 // If not dead
@@ -51,7 +55,8 @@ function setNotDead() {
 function setDead(deathDate) {
   $(".answer").text(F.randomChoice(answers.yes));
   $("body").addClass("yes");
-  $(".date").text(deathDate);
+  $(".date").text(new Date(deathDate).toDateString());
+  $(".difference").text(getDateDifference(deathDate));
   $(".source").css("display", "block");
 
   confetti({
@@ -61,13 +66,23 @@ function setDead(deathDate) {
   });
 }
 
-// Get death date from Wikipedia article
-const logs = {};
-function getDeathDate(name) {
-  return new Promise(resolve => {
-    const now = Date.now();
-    logs[now] = {};
+// Get difference in date between death date and now, as string
+function getDateDifference(date) {
+  return F.parseTime(new Date(Date.now() - date), undefined, (item, i) => {
+    if (i < 2) {
+      return (
+        Math.floor(item.amount).toString() +
+        " " +
+        (Math.floor(item.amount) === 1 ? item.singular : item.plural)
+      );
+    }
+  });
+}
 
+// Get death date from Wikipedia article
+function getDeathDate(name, returnStats) {
+  return new Promise(resolve => {
+    // Fetch Wikipedia API
     const URL =
       "https://en.wikipedia.org/w/api.php?" +
       $.param({
@@ -78,6 +93,7 @@ function getDeathDate(name) {
         rvprop: "content",
         titles: name,
       });
+
     fetch(URL, {
       method: "GET",
       mode: "cors",
@@ -87,16 +103,38 @@ function getDeathDate(name) {
     })
       .then(res => res.json())
       .then(json => {
-        logs[now].json = json;
-        // Parse data (very unreliable)
-        var date = Object.values(json?.query?.pages)?.[0]
-          ?.revisions[0]["*"].split("death_date")[1]
-          ?.replace(/^ */, "")
-          ?.slice(2)
+        // Find date in whole article
+        var dateString = Object.values(json?.query?.pages)?.[0]
+          ?.revisions[0]["*"].split(/death_date\s*=\s*(?!\|)/g)[1]
+          // ?.replace(/^ */, "")
+          // ?.slice(2)
           ?.split("\n")[0];
-        logs[now].date = date;
 
-        resolve(date || null);
+        // Parse Wikipedia date format to date string
+        var date = null;
+        if (dateString) {
+          if (dateString?.startsWith("{{") && dateString?.endsWith("}}")) {
+            dateString = dateString.slice(0, -2).split("|");
+            if (dateString[1]?.includes("=")) {
+              dateString = dateString.slice(-6, -3);
+            } else {
+              dateString = dateString.slice(1, 4);
+            }
+            dateString =
+              dateString[1] + " " + dateString[2] + " " + dateString[0];
+          } else {
+            dateString = dateString.split(" (")[0];
+          }
+
+          date = new Date(dateString).getTime(); // Convert to date code
+          // For test function
+          if (returnStats) {
+            resolve({ name, dateString, date });
+            return;
+          }
+        }
+
+        resolve(date);
       })
       .catch(err => {
         throw err;
@@ -113,10 +151,41 @@ function getFutureDate() {
     .join(" ");
 }
 
-// Test with other name
-function test() {
-  var char = name.slice(-1);
-  name = name.slice(0, -1);
-  init();
-  name += char;
+// Test getDeathDate API with other name (Debug)
+function debug() {
+  $(".debug").css("display", "block");
+  console.warn(
+    "[debug] RUNNING TEST!\nDocument will run as 'Elizabeth I', be warned!",
+  );
+  init("Elizabeth I");
+  var testNames = [
+    "Elvis Presley",
+    "Michael Jackson",
+    "Betty White",
+    "Elizabeth II",
+    "Elizabeth I",
+    "Elon Musk",
+    "Dwayne Johnson",
+    "Kobe Bryant",
+    "Jared Leto",
+    "Steve Irwin",
+    "Joe Biden",
+    "XXXTentacion",
+    "Kanye West",
+    "Prince (musician)",
+    "DaBaby",
+    "Ray Liotta",
+    "Jerry Seinfeld",
+  ];
+  for (var i in testNames) {
+    (async name => {
+      var res = await getDeathDate(testNames[i], true);
+      console.log(
+        `[debug] '${name}': ${res?.date ? "DEAD" : "alive"}` + "\n   Date:",
+        res?.dateString,
+        "\n   Code:",
+        res?.date,
+      );
+    })(testNames[i]);
+  }
 }

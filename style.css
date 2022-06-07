@@ -32,6 +32,12 @@ body.no {
   animation: question 0.4s infinite alternate;
 }
 
+.debug {
+  display: none;
+  margin: 0;
+  color: red;
+}
+
 @keyframes question {
   from {
     transform: translate(0, 0);
@@ -46,12 +52,14 @@ body.no {
 }
 
 .secondary {
+  margin: 0;
   opacity: 0.6;
 }
 .secondary .loading,
 .secondary .check,
 .secondary .source {
   display: none;
+  margin: 20px 0;
   padding: none;
   font-size: inherit;
   text-align: center;
@@ -63,8 +71,18 @@ body.no {
 .secondary .check:hover {
   text-decoration: underline;
 }
+.secondary .source {
+  margin: 5px 0;
+  font-size: 90%;
+}
+.secondary .source p {
+  margin: 10px 0;
+}
+.secondary .source p:first-of-type {
+  margin: 0;
+}
 .secondary .source a {
-  font-size: 15px;
+  font-size: 70%;
   color: white;
   opacity: 0.5;
 }

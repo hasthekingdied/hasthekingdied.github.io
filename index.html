@@ -49,13 +49,14 @@
 
   <body onload="init()">
     <h1 class="question">Has the queen died?</h1>
+    <h4 class="debug">[debug]</h4>
     <h2 class="answer">🤔</h2>
     <h3 class="secondary">
       <span class="loading">Loading...</span>
       <span class="check" onclick="init()">Check again</span>
       <span class="source">
-        <span class="date"> Unknown date </span>
-        <br />
+        <p>Died <span class="date"> Unknown date </span></p>
+        <p>(<span class="difference"> Unknown years </span> ago)</p>
         <a href="https://wikipedia.org/wiki/Elizabeth_II">
           Source: Wikipedia
         </a>

@@ -37,6 +37,12 @@ body {
   }
 }
 
+.debug {
+  display: none;
+  margin: 0;
+  color: red;
+}
+
 @keyframes question {
   from {
     transform: translate(0, 0);
@@ -54,12 +60,14 @@ body {
 
 // Under answer
 .secondary {
+  margin: 0;
   opacity: 0.6;
 
   .loading,
   .check,
   .source {
     display: none;
+    margin: 20px 0;
     padding: none;
     font-size: inherit;
     text-align: center;
@@ -74,13 +82,26 @@ body {
     }
   }
 
-  .source a {
-    font-size: 15px;
-    color: white;
-    opacity: 0.5;
+  .source {
+    margin: 5px 0;
+    font-size: 90%;
 
-    &:not(:hover) {
-      text-decoration: none;
+    p {
+      margin: 10px 0;
+
+      &:first-of-type {
+        margin: 0;
+      }
+    }
+
+    a {
+      font-size: 70%;
+      color: white;
+      opacity: 0.5;
+
+      &:not(:hover) {
+        text-decoration: none;
+      }
     }
   }
 }
