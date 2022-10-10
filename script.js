@@ -1,4 +1,4 @@
-var fullName = "Elizabeth II";
+var fullName = "Charles_III";
 var answers = {
   no: [
     "no",
@@ -13,7 +13,7 @@ var answers = {
     "Probably not tbh.",
     "You wish!",
     "Nope. Try again tomorrow!",
-    `No. But perhaps it will occur on:<br /><code>${getFutureDate()}</code>`, // Merely a harmless prediction is all!
+    `No. But perhaps it will occur on:<br /><code>${getFutureDate()}</code>`, // Merely a harmless prediction is all! This is NOT a threat
   ],
   yes: [
     "YES!",
@@ -155,13 +155,15 @@ function getFutureDate() {
 function debug() {
   $(".debug").css("display", "block");
   console.warn(
-    "[debug] RUNNING TEST!\nDocument will run as 'Elizabeth I', be warned!",
+    "[debug] RUNNING TEST!\nDocument will run as 'Elizabeth II', be warned!",
   );
-  init("Elizabeth I");
+  //TODO Add test results
+  init("Elizabeth II");
   var testNames = [
     "Elvis Presley",
     "Michael Jackson",
     "Betty White",
+    "Charles III",
     "Elizabeth II",
     "Elizabeth I",
     "Elon Musk",
