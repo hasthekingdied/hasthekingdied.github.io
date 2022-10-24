@@ -153,7 +153,7 @@ function getFutureDate() {
 
 // Test getDeathDate API with other name (Debug)
 function debug() {
-  $(".debug").css("display", "block");
+  $(".debug").text("[debug] - This is not real!!!");
   console.warn(
     "[debug] RUNNING TEST!\nDocument will run as 'Elizabeth II', be warned!",
   );
