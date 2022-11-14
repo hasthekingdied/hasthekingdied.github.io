@@ -46,14 +46,14 @@ async function init(name = fullName) {
 
 // If not dead
 function setNotDead() {
-  $(".answer").html(F.randomChoice(answers.no));
+  $(".answer").html(randomChoice(answers.no));
   $("body").addClass("no");
   $(".check").css("display", "block");
 }
 
 // If is dead
 function setDead(deathDate) {
-  $(".answer").text(F.randomChoice(answers.yes));
+  $(".answer").text(randomChoice(answers.yes));
   $("body").addClass("yes");
   $(".date").text(new Date(deathDate).toDateString());
   $(".difference").text(getDateDifference(deathDate));
@@ -68,7 +68,7 @@ function setDead(deathDate) {
 
 // Get difference in date between death date and now, as string
 function getDateDifference(date) {
-  return F.parseTime(new Date(Date.now() - date), undefined, (item, i) => {
+  return parseTime(new Date(Date.now() - date), undefined, (item, i) => {
     if (i < 2) {
       return (
         Math.floor(item.amount).toString() +
@@ -144,7 +144,7 @@ function getDeathDate(name, returnStats) {
 
 // Get random date somewhere in the near future
 function getFutureDate() {
-  return new Date(Date.now() + F.randomInt(2e9, 4e9))
+  return new Date(Date.now() + randomInt(2e9, 4e9))
     .toString()
     .split(" ")
     .slice(0, 5)
@@ -190,4 +190,141 @@ function debug() {
       );
     })(testNames[i]);
   }
+}
+
+//TODO Add comments to below functions
+
+function randomInt(min, max, floor = true) {
+  if (min === max) {
+    return min;
+  }
+  if (min > max) {
+    throw "Minimum greater than maximum";
+  }
+  return Math[floor ? "floor" : "round"](Math.random() * (max - min) + min);
+}
+
+function randomChoice(array) {
+  if (!array) {
+    return;
+  }
+  return array[randomInt(0, array.length - 1)];
+}
+
+function parseTime(
+  milliseconds,
+  join = ", ",
+  method = item => {
+    return (
+      Math.floor(item.amount).toString() +
+      " " +
+      (Math.floor(item.amount) === 1 ? item.singular : item.plural)
+    );
+  },
+) {
+  var units = [
+    {
+      amount: 1000,
+      prefix: "s",
+      singular: "second",
+      plural: "seconds",
+      size: 1,
+    },
+    {
+      amount: 60,
+      prefix: "m",
+      singular: "minute",
+      plural: "minutes",
+      size: 2,
+    },
+    {
+      amount: 60,
+      prefix: "h",
+      singular: "hour",
+      plural: "hours",
+      size: 3,
+    },
+    {
+      amount: 24,
+      prefix: "d",
+      singular: "day",
+      plural: "days",
+      size: 4,
+    },
+    {
+      amount: 7,
+      prefix: "w",
+      singular: "week",
+      plural: "weeks",
+      size: 5,
+    },
+    {
+      amount: 4.34524,
+      prefix: "M",
+      singular: "month",
+      plural: "months",
+      size: 6,
+    },
+    {
+      amount: 12,
+      prefix: "Y",
+      singular: "year",
+      plural: "years",
+      size: 7,
+    },
+    {
+      amount: 10,
+      prefix: "D",
+      singular: "decade",
+      plural: "decades",
+      size: 8,
+    },
+    {
+      amount: 10,
+      prefix: "C",
+      singular: "century",
+      plural: "centuries",
+      size: 9,
+    },
+  ];
+  var time = [
+    {
+      amount: milliseconds,
+      prefix: "ms",
+      singular: "millisecond",
+      plural: "millisecond",
+      size: 0,
+    },
+  ];
+  for (var i in units) {
+    if (time[0].amount >= units[i].amount) {
+      if (time[0].amount % units[i].amount) {
+        time = [
+          {
+            ...units[i],
+            amount: Math.floor(time[0].amount / units[i].amount),
+          },
+          {
+            ...time[0],
+            amount: time[0].amount % units[i].amount,
+          },
+          ...time.slice(1),
+        ];
+      } else {
+        time = [
+          {
+            ...units[i],
+            amount: Math.floor(time[0].amount / units[i].amount),
+          },
+          ...time.slice(1),
+        ];
+      }
+    } else {
+      break;
+    }
+  }
+  return time
+    .map(method)
+    .filter(i => i !== undefined)
+    .join(join);
 }
